@@ -28,7 +28,7 @@ tr {
                     <label for="import-update">Update Existing Values?:</label>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <input type="checkbox" name="import-update" v-model="options.update">
+                    <input type="checkbox" name="import-update" v-model="options.update">(Only applicable for Asset import)
                 </div>
             </div>
             <div class="dynamic-form-row">
@@ -115,7 +115,8 @@ tr {
                         { id: 'consumable', text: 'Consumables' },
                         { id: 'component', text: 'Components' },
                         { id: 'license', text: 'Licenses' },
-                        { id: 'user', text: 'Users' }
+                        { id: 'user', text: 'Users' },
+                        { id: 'fields', text: 'CustomFields Data' }
                     ],
                     statusText: null,
                 },
@@ -209,6 +210,8 @@ tr {
                         return this.columnOptions.general.concat(this.columnOptions.licenses).sort(sorter);
                     case 'user':
                         return this.columnOptions.general.concat(this.columnOptions.users).sort(sorter);
+                    case 'fields':
+                        return this.columnOptions.general.concat(this.columnOptions.customFields).sort(sorter);
                 }
                 return this.columnOptions.general;
             },

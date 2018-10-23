@@ -143,6 +143,9 @@ class ImportController extends Controller
             case "user":
                 $redirectTo = "users.index";
                 break;
+            case "fields":
+                $redirectTo = "fields.index";
+                break;
         }
 
         if ($errors) { //Failure
