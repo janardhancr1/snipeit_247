@@ -228,11 +228,11 @@ class AssetModelsController extends Controller
                 $assetmodel->use_text .= (($assetmodel->manufacturer) ? e($assetmodel->manufacturer->name).' ' : '');
             }
 
-            $assetmodel->use_text .=  e($assetmodel->name);
-
             if (($settings->modellistCheckedValue('model_number')) && ($assetmodel->model_number!='')) {
-                $assetmodel->use_text .=  ' (#'.e($assetmodel->model_number).')';
+                $assetmodel->use_text .= e($assetmodel->model_number);
             }
+
+            //$assetmodel->use_text .=   ' (#'.e($assetmodel->name).')';
 
             $assetmodel->use_image = ($settings->modellistCheckedValue('image') && ($assetmodel->image)) ? url('/').'/uploads/models/'.$assetmodel->image : null;
         }

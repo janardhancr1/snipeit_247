@@ -82,9 +82,8 @@ tr {
                      <br><br>
                  </div>
 
-                <div class="alert col-md-12" style="padding-top: 20px;"
+                <div class="alert col-md-12" style="padding-top: 20px;text-align:left"
                      :class="alertClass"
-                     style="text-align:left"
                      v-if="statusText">
                     {{ this.statusText }}
                 </div>
@@ -110,13 +109,17 @@ tr {
                     importType: this.file.import_type,
                     update: false,
                     importTypes: [
+                        { id: 'location', text: 'Locations' },
+                        { id: 'manufacturer', text: 'Asset Manufacturers' },
+                        { id: 'categories', text: 'Asset Categories' },
+                        { id: 'assetmodel', text: 'Assets Model' },
+                        { id: 'fields', text: 'Custom Fields' },
                         { id: 'asset', text: 'Assets' },
                         { id: 'accessory', text: 'Accessories' },
                         { id: 'consumable', text: 'Consumables' },
                         { id: 'component', text: 'Components' },
                         { id: 'license', text: 'Licenses' },
-                        { id: 'user', text: 'Users' },
-                        { id: 'fields', text: 'CustomFields Data' }
+                        { id: 'user', text: 'Users' }
                     ],
                     statusText: null,
                 },
@@ -176,6 +179,12 @@ tr {
 
                     ],
                     customFields: this.customFields,
+                    assetmodel: [
+                        {id: 'name', text: 'Assets Model Name' },
+                        {id: 'manufacturer', text: 'Manufacturer' },
+                        {id: 'model_number', text: 'Model Number' },
+                        {id: 'category', text: 'Category' },
+                    ],
                 },
                 columnMappings: this.file.field_map || {},
                 activeColumn: null,
@@ -210,6 +219,14 @@ tr {
                         return this.columnOptions.general.concat(this.columnOptions.licenses).sort(sorter);
                     case 'user':
                         return this.columnOptions.general.concat(this.columnOptions.users).sort(sorter);
+                    case 'location':
+                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
+                    case 'manufacturer':
+                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
+                    case 'categories':
+                        return this.columnOptions.general.concat(this.columnOptions.general).sort(sorter);
+                    case 'assetmodel':
+                        return this.columnOptions.general.concat(this.columnOptions.assetmodel).sort(sorter);
                     case 'fields':
                         return this.columnOptions.general.concat(this.columnOptions.customFields).sort(sorter);
                 }

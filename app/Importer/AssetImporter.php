@@ -67,7 +67,7 @@ class AssetImporter extends ItemImporter
             $asset = new Asset;
             $asset_tag = Asset::autoincrement_asset();
         }
-
+        
         $this->item['image'] = $this->findCsvMatch($row, "image");
         $this->item['warranty_months'] = intval($this->findCsvMatch($row, "warranty_months"));
         $this->item['model_id'] = $this->createOrFetchAssetModel($row);
@@ -112,7 +112,9 @@ class AssetImporter extends ItemImporter
         if ($asset->save()) {
             $asset->logCreate('Imported using csv importer');
             $this->log('Asset ' . $this->item["name"] . ' with serial number ' . $this->item['serial'] . ' was created');
-
+            $settings = \App\Models\Setting::getSettings();
+            $settings->next_auto_tag_base ++;
+            $settings->save();
             // If we have a target to checkout to, lets do so.
             if(isset($target)) {
                 $asset->fresh()->checkOut($target);

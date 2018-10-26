@@ -12,6 +12,7 @@ use App\Models\Statuslabel;
 use App\Models\Supplier;
 use App\Models\Department;
 use App\Models\User;
+use App\Models\CustomFieldset;
 
 class ItemImporter extends Importer
 {
@@ -193,7 +194,7 @@ class ItemImporter extends Importer
             $asset_model_name ='Unknown';
         }
         $editingModel = $this->updating;
-        $asset_model = AssetModel::where(['name' => $asset_model_name, 'model_number' => $asset_modelNumber])->first();
+        $asset_model = AssetModel::where(['manufacturer_id' => $this->item["manufacturer_id"], 'model_number' => $asset_modelNumber, 'category_id' => $this->item["category_id"]])->first();
 
         if ($asset_model) {
             if (!$this->updating) {
@@ -215,7 +216,10 @@ class ItemImporter extends Importer
         $item = $this->sanitizeItemForStoring($asset_model, $editingModel);
         $item['name'] = $asset_model_name;
         $item['model_number'] = $asset_modelNumber;
-
+        $fieldset = CustomFieldset::where(['name' => '247 Fieldset'])->first();
+        if($fieldset){
+            $item['fieldset_id'] = $fieldset->id;
+        }
         $asset_model->fill($item);
         $item = null;
 
@@ -240,8 +244,10 @@ class ItemImporter extends Importer
     {
         // Magic to transform "AssetImporter" to "asset" or similar.
         $classname = class_basename(get_class($this));
-        $item_type = strtolower(substr($classname, 0, strpos($classname, 'Importer')));
-
+        $item_type = strtolower(str_replace("Model", "", substr($classname, 0, strpos($classname, 'Importer'))));
+        if($item_type != "asset"){
+            $item_type = "asset";
+        }
         if (empty($asset_category)) {
             $asset_category = 'Unnamed Category';
         }

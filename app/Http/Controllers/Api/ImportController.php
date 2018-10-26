@@ -143,6 +143,18 @@ class ImportController extends Controller
             case "user":
                 $redirectTo = "users.index";
                 break;
+            case "location":
+                $redirectTo = "locations.index";
+                break;
+            case "manufacturer":
+                $redirectTo = "manufacturers.index";
+                break;
+            case "categories":
+                $redirectTo = "categories.index";
+                break;
+            case "assetmodel":
+                $redirectTo = "models.index";
+                break;
             case "fields":
                 $redirectTo = "fields.index";
                 break;
