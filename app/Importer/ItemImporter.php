@@ -29,7 +29,7 @@ class ItemImporter extends Importer
 
         $item_category = $this->findCsvMatch($row, "category");
         if ($this->shouldUpdateField($item_category)) {
-            $this->item["category_id"] = $this->createOrFetchCategory($item_category);
+            $this->item["category_id"] = $this->fetchCategory($item_category);
         }
 
         $item_company_name = $this->findCsvMatch($row, "company");
@@ -39,12 +39,12 @@ class ItemImporter extends Importer
 
         $item_location = $this->findCsvMatch($row, "location");
         if ($this->shouldUpdateField($item_location)) {
-            $this->item["location_id"] = $this->createOrFetchLocation($item_location);
+            $this->item["location_id"] = $this->fetchLocation($item_location);
         }
 
         $item_manufacturer = $this->findCsvMatch($row, "manufacturer");
         if ($this->shouldUpdateField($item_manufacturer)) {
-            $this->item["manufacturer_id"] = $this->createOrFetchManufacturer($item_manufacturer);
+            $this->item["manufacturer_id"] = $this->fetchManufacturer($item_manufacturer);
         }
 
         $item_status_name = $this->findCsvMatch($row, "status");
@@ -273,6 +273,36 @@ class ItemImporter extends Importer
     }
 
     /**
+     * Finds a category with the same name and item type in the database and returns it
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param $asset_category string
+     * @return int Id of category created/found
+     * @internal param string $item_type
+     */
+    public function fetchCategory($asset_category)
+    {
+        // Magic to transform "AssetImporter" to "asset" or similar.
+        $classname = class_basename(get_class($this));
+        $item_type = strtolower(str_replace("Model", "", substr($classname, 0, strpos($classname, 'Importer'))));
+        if($item_type != "asset"){
+            $item_type = "asset";
+        }
+        if (empty($asset_category)) {
+            $asset_category = 'Unnamed Category';
+        }
+        $category = Category::where(['name' => $asset_category, 'category_type' => $item_type])->first();
+
+        if ($category) {
+            $this->log("A matching category: " . $asset_category . " already exists");
+            return $category->id;
+        }
+
+        return null;
+    }
+
+    /**
      * Fetch an existing company, or create new if it doesn't exist
      *
      * @author Daniel Melzter
@@ -422,6 +452,30 @@ class ItemImporter extends Importer
     }
 
     /**
+     * Finds a manufacturer with matching name and returns its id
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param $item_manufacturer string
+     * @return Manufacturer
+     */
+
+    public function fetchManufacturer($item_manufacturer)
+    {
+        if (empty($item_manufacturer)) {
+            $item_manufacturer='Unknown';
+        }
+        $manufacturer = Manufacturer::where(['name'=> $item_manufacturer])->first();
+
+        if ($manufacturer) {
+            $this->log('Manufacturer ' . $item_manufacturer . ' already exists') ;
+            return $manufacturer->id;
+        }
+
+        return null;
+    }
+
+    /**
      * Checks the DB to see if a location with the same name exists, otherwise create it
      *
      * @author Daniel Melzter
@@ -455,6 +509,29 @@ class ItemImporter extends Importer
             return $location->id;
         }
         $this->logError($location, 'Location');
+        return null;
+    }
+
+    /**
+     * Checks the DB to see if a location with the same name exists and returns it
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param $asset_location string
+     * @return Location|null
+     */
+    public function fetchLocation($asset_location)
+    {
+        if (empty($asset_location)) {
+            $this->log('No location given, so none created.');
+            return null;
+        }
+        $location = Location::where(['name' => $asset_location])->first();
+
+        if ($location) {
+            $this->log('Location ' . $asset_location . ' already exists');
+            return $location->id;
+        }
         return null;
     }
 
