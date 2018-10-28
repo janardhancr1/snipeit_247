@@ -34,7 +34,7 @@ class ItemImporter extends Importer
 
         $item_company_name = $this->findCsvMatch($row, "company");
         if ($this->shouldUpdateField($item_company_name)) {
-            $this->item["company_id"] = $this->createOrFetchCompany($item_company_name);
+            $this->item["company_id"] = $this->fetchCompany($item_company_name);
         }
 
         $item_location = $this->findCsvMatch($row, "location");
@@ -325,6 +325,24 @@ class ItemImporter extends Importer
             return $company->id;
         }
         $this->logError($company, 'Company');
+        return null;
+    }
+
+    /**
+     * Fetch an existing company and returns its id
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param $asset_company_name string
+     * @return int id of company created/found
+     */
+    public function fetchCompany($asset_company_name)
+    {
+        $company = Company::where(['name' => $asset_company_name])->first();
+        if ($company) {
+            $this->log('A matching Company ' . $asset_company_name . ' already exists');
+            return $company->id;
+        }
         return null;
     }
 
