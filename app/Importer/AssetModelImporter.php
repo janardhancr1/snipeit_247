@@ -31,7 +31,7 @@ class AssetModelImporter extends ItemImporter
         if ($category) {
             $this->item["category_id"] = $category->id;
         } else {
-            $this->logError($category, 'Category "' . $item_category . '"');
+            //$this->logError($category, 'Category "' . $item_category . '"');
             return;
         }
 
@@ -41,7 +41,7 @@ class AssetModelImporter extends ItemImporter
         if ($manufacturer) {
             $this->item["manufacturer_id"] =  $manufacturer->id;
         } else {
-            $this->logError($manufacturer, 'Manufacturer "' .  $item_manufacturer . '"');
+            //$this->logError($manufacturer, 'Manufacturer "' .  $item_manufacturer . '"');
             return;
         }
 
