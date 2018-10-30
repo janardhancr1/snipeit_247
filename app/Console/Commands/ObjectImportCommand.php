@@ -27,7 +27,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use ForceUTF8\Encoding;
 
-ini_set('max_execution_time', 600); //600 seconds = 10 minutes
+ini_set('max_execution_time', 0); //600 seconds = 10 minutes
 ini_set('memory_limit', '500M');
 
 /**
