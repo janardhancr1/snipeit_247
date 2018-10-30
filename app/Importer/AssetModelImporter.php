@@ -41,11 +41,11 @@ class AssetModelImporter extends ItemImporter
         if ($manufacturer) {
             $this->item["manufacturer_id"] =  $manufacturer->id;
         } else {
-            $this->logError($asset_model, 'Manufacturer "' . $item_manufacturer . '"');
+            $this->logError($asset_model, 'Manufacturer "' .  $item_manufacturer . '"');
             return;
         }
 
-        $this->item["name"] = $item_category;
+        $this->item["name"] = $item_category . " " . $item_manufacturer . " " . $asset_modelNumber;
         $asset_model = AssetModel::where(['manufacturer_id' => $this->item["manufacturer_id"], 'model_number' => $asset_modelNumber, 'category_id' => $this->item["category_id"]])->first();
         //print_r($this->item);
         if ($asset_model) {

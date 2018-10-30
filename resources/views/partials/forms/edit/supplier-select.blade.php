@@ -1,4 +1,4 @@
-<div id="assigned_user" class="form-group{{ $errors->has($fieldname) ? ' has-error' : '' }}">
+<div id="assigned_user" class="form-group{{ $errors->has($fieldname) ? ' has-error' : '' }}" style="display:none">
 
     {{ Form::label($fieldname, $translated_name, array('class' => 'col-md-3 control-label')) }}
 

@@ -53,7 +53,8 @@ class ImportController extends Controller
                     'text/csv',
                     'text/plain',
                     'text/comma-separated-values',
-                    'text/tsv'))) {
+                    'text/tsv',
+                    'text/x-Algol68'))) {
                     $results['error']='File type must be CSV';
                     return response()->json(Helper::formatStandardApiResponse('error', null, $results['error']), 500);
                 }

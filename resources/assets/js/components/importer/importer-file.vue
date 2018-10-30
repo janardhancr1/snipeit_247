@@ -28,7 +28,7 @@ tr {
                     <label for="import-update">Update Existing Values?:</label>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <input type="checkbox" name="import-update" v-model="options.update">(Only applicable for Asset import)
+                    <input type="checkbox" name="import-update" v-model="options.update"> (Only applicable for Asset import)
                 </div>
             </div>
             <div class="dynamic-form-row">
@@ -36,7 +36,7 @@ tr {
                     <label for="send-welcome">Send Welcome Email for new Users?</label>
                 </div>
                 <div class="col-md-7 col-xs-12">
-                    <input type="checkbox" name="send-welcome" v-model="options.send_welcome">
+                    <input type="checkbox" name="send-welcome" v-model="options.send_welcome"> (Only applicable for Users import)
                 </div>
                 </div>
             </div>
