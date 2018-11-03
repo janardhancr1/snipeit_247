@@ -139,7 +139,7 @@ tr {
                         {id: 'purchase_date', text: 'Purchase Date' },
                         {id: 'quantity', text: 'Quantity' },
                         {id: 'requestable', text: 'Requestable' },
-                        {id: 'serial', text: 'Serial Number' },
+                        {id: 'serial', text: 'Serial' },
                         {id: 'supplier', text: 'Supplier' },
                         {id: 'username', text: 'Username' },
                     ],

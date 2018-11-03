@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
+use League\Csv\Writer;
 
 abstract class Importer
 {
@@ -120,6 +121,12 @@ abstract class Importer
     {
         $headerRow = $this->csv->fetchOne();
         $results = $this->normalizeInputArray($this->csv->fetchAssoc());
+
+        $filename = config('app.private_uploads') . '/imports/importerror.csv';
+        $writer = Writer::createFromPath($filename, 'w+');
+        
+        $headerRow[] = "Erros";
+        $writer->insertOne($headerRow);
 
         $this->populateCustomFields($headerRow);
 

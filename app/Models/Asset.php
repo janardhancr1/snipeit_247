@@ -1305,4 +1305,53 @@ class Asset extends Depreciable
     }
 
 
+    /**
+     * Update Major category based on category
+     *
+     * @param  text $category  Category of asset
+     * @param  text $field    Custom Field Name
+     *
+     */
+    public function updateMajorCategory($category, $field)
+    {
+        $techCustomField = CustomField::where(["name" => "Major Category"]);
+        switch($category)
+        {
+            case "LAPTOP":
+            case "CPU":
+            case "MONITOR":
+            case "ACCESS SWITCH":
+            case "TERMINAL SERVER":
+            case "CORE SWITCH":
+            case "ROUTER":
+            case "FIREWALL":
+            case "CHECK POINT":
+            case "VIRTUALIZATION ENGINE":
+            case "WAN SWITCH":
+            case "LOAD BALANCER":
+            case "SWITCH":
+            case "JUNIPER SWITCH":
+            case "CISCO PIX":
+            case "CISCO ROUTER":
+            case "WIRELESS CONTROLLER":
+            case "SERVERS":
+            case "CISCO SMART SERVICES":
+            case "GATEWAY":
+            case "APC KVM SWITCH":
+            case "STORAGE":
+            case "TAPE DRIVE":
+            case "CONTROLLER":
+            case "GOOGLE MINI":
+                if($techCustomField){
+                    $this->custom_fields[$techCustomField->db_column] = "Technology";
+                }
+                break;
+            default:
+                if($techCustomField){
+                    $this->custom_fields[$techCustomField->db_column] = "Non Technology";
+                }
+                break;
+        }
+
+    }
 }

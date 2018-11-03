@@ -222,6 +222,10 @@ Route::group([ 'prefix' => 'import', 'middleware' => ['auth']], function () {
                 'as' => 'imports.index',
                 'uses' => 'ImportsController@index'
         ]);
+        Route::get('/getfile', [
+            'as' => 'imports.getfile',
+            'uses' => 'ImportsController@getfile'
+    ]);
 });
 
 

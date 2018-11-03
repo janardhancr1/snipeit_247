@@ -62,6 +62,12 @@ return array(
             'display'    => true,
         ),
         array(
+            'permission' => 'assets.import',
+            'label'      => 'Import ',
+            'note'       => '',
+            'display'    => true,
+        ),
+        array(
             'permission' => 'assets.checkout',
             'label'      => 'Checkout ',
             'note'       => '',
@@ -306,6 +312,12 @@ return array(
             'note'       => '',
             'display'    => true,
         ),
+        array(
+            'permission' => 'models.import',
+            'label'      => 'Import ',
+            'note'       => '',
+            'display'    => true,
+        ),
 
     ),
 
@@ -331,6 +343,12 @@ return array(
         array(
             'permission' => 'categories.delete',
             'label'      => 'Delete ',
+            'note'       => '',
+            'display'    => true,
+        ),
+        array(
+            'permission' => 'categories.import',
+            'label'      => 'Import ',
             'note'       => '',
             'display'    => true,
         ),
@@ -415,6 +433,12 @@ return array(
             'note'       => '',
             'display'    => true,
         ),
+        array(
+            'permission' => 'customfields.import',
+            'label'      => 'Import',
+            'note'       => '',
+            'display'    => true,
+        ),
     ), 
 
     'Suppliers' => array(
@@ -470,6 +494,12 @@ return array(
             'note'       => '',
             'display'    => true,
         ),
+        array(
+            'permission' => 'manufacturers.import',
+            'label'      => 'Import ',
+            'note'       => '',
+            'display'    => true,
+        ),
     ),
 
     'Depreciations' => array(
@@ -521,6 +551,12 @@ return array(
         array(
             'permission' => 'locations.delete',
             'label'      => 'Delete ',
+            'note'       => '',
+            'display'    => true,
+        ),
+        array(
+            'permission' => 'locations.import',
+            'label'      => 'Import ',
             'note'       => '',
             'display'    => true,
         ),

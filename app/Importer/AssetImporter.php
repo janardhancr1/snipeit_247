@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Statuslabel;
+use League\Csv\Writer;
 
 class AssetImporter extends ItemImporter
 {
@@ -22,23 +23,42 @@ class AssetImporter extends ItemImporter
     {
         // ItemImporter handles the general fetching.
         parent::handle($row);
+        $createAsset = true;
 
+        $filename = config('app.private_uploads') . '/imports/importerror.csv';
+        $writer = Writer::createFromPath($filename, 'a');
+        $row["Erros"] = "Invalid data for these master : ";
         if ($this->customFields) {
-
             foreach ($this->customFields as $customField) {
                 $customFieldValue = $this->array_smart_custom_field_fetch($row, $customField);
                 if ($customFieldValue) {
                     $this->item['custom_fields'][$customField->db_column_name()] = $customFieldValue;
-                    $this->log('Custom Field '. $customField->name.': '.$customFieldValue);
+                    $this->log('Custom Field '. $customField->name .': '.$customFieldValue);
+                    if($customField->element == 'listbox'){
+                        $values = $customField->formatFieldValuesAsArray();
+                        if(!in_array(strtolower($customFieldValue), array_map('strtolower', $values))) {
+                            $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
+                            $row["Erros"] .= ", " .$customField->name;
+                            $createAsset = false;
+                        }
+                    }
                 } else {
                     // Clear out previous data.
-                    $this->item['custom_fields'][$customField->db_column_name()] = null;
+                    //$this->item['custom_fields'][$customField->db_column_name()] = null;
+                    // Data not found in the custom fields master log and throws error
+                    $this->log('Custom Field ' . $customField->name . ' value not found.');
+                    $createAsset = false;
                 }
             }
         }
 
-
-        $this->createAssetIfNotExists($row);
+        if($createAsset) {
+            $this->createAssetIfNotExists($row);
+        } else {
+            $writer->insertOne($row);
+            $asset = new Asset;
+            $this->logError($asset,  'Asset "' . $this->item['name'].'"');
+        }
     }
 
     /**
@@ -93,12 +113,21 @@ class AssetImporter extends ItemImporter
             $item['rtd_location_id'] = $this->item['location_id'];
         }
 
+        //if no serial number do not import
+        if(empty($item["serial"])){
+            $this->log("No serail found, ignoring this asset.");
+            return;
+        }
 
+       
+        
         if ($editingAsset) {
             $asset->update($item);
         } else {
             $asset->fill($item);
         }
+
+        $asset->updateMajorCategory($item_category);
 
         // If we're updating, we don't want to overwrite old fields.
         if (array_key_exists('custom_fields', $this->item)) {

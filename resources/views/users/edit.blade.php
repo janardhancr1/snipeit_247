@@ -44,6 +44,7 @@
     }
     .header-row {
       border-bottom: 1px solid #ccc;
+      border-top: 1px solid;
     }
 
     .header-row h3 {
@@ -57,6 +58,10 @@
     .table > tbody > tr > td.permissions-item {
       padding: 1px;
       padding-left: 8px;
+    }
+
+    .header-row > td.permissions-item {
+      padding: 10px 8px !important;
     }
 
     .header-name {

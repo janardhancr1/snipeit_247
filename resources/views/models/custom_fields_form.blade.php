@@ -1,6 +1,6 @@
 @if (($model) && ($model->fieldset))
   @foreach($model->fieldset->fields AS $field)
-    <div class="form-group{{ $errors->has($field->db_column_name()) ? ' has-error' : '' }}">
+    <div class="form-group{{ $errors->has($field->db_column_name()) ? ' has-error' : '' }}" style="display:{{$field->name == 'Major Category' ? 'None':''}}">
       <label for="{{ $field->db_column_name() }}" class="col-md-3 control-label">{{ $field->name }} </label>
       <div class="col-md-7 col-sm-12{{ ($field->pivot->required=='1') ? ' required' : '' }}">
 

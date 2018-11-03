@@ -387,7 +387,8 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'], function () {
                     'show' => 'api.imports.show',
                     'store' => 'api.imports.store',
                     'update' => 'api.imports.update',
-                    'destroy' => 'api.imports.destroy'
+                    'destroy' => 'api.imports.destroy',
+                    'getfile' => 'api.imports.getfile'
                 ],
             'except' => ['create', 'edit'],
             'parameters' => ['import' => 'import_id']

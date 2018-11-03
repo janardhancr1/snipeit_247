@@ -20,7 +20,8 @@
             <td>{{ item }}</td>
             <td v-for="(value, field) in error">
                 <b>{{ field }}:</b>
-                <span v-for="errorString in value">{{errorString[0]}}</span>
+                <span v-if="field != 'Message'" v-for="errorString in value">{{errorString[0]}}</span>
+                <span v-if="field == 'Message'" v-html="value"></span>
               <br />
             </td>
           </tr>

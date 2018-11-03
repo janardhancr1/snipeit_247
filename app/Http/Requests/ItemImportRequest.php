@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Import;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use League\Csv\Reader;
 
 class ItemImportRequest extends FormRequest
 {
@@ -38,6 +39,18 @@ class ItemImportRequest extends FormRequest
         $import->import_type = $this->input('import-type');
         $class = title_case($import->import_type);
         $classString = "App\\Importer\\{$class}Importer";
+        if($class == "Asset"){
+            if (is_file($filename)) {
+                $csv = Reader::createFromPath($filename);
+            } else {
+                $csv = Reader::createFromString($filename);
+            }
+            $records = $csv->fetchAll();
+            if(count($records) > 500){
+                $error["Data"]["Message"] = "We cannot import data more that 500 records";
+                return $error;
+            }
+        }
         $importer = new $classString($filename);
         $import->field_map  = request('column-mappings');
         $import->save();
@@ -56,6 +69,9 @@ class ItemImportRequest extends FormRequest
         // $logFile = storage_path('logs/importer.log');
         // \Log::useFiles($logFile);
         $importer->import();
+        if($class == "Asset" && $this->errors){
+            array_push($this->errors, array("Message" => "There are some import errors. <a href='http://localhost:9090/import/getfile'>Click Here</a> to download the error files."));
+        }
         return $this->errors;
     }
 
