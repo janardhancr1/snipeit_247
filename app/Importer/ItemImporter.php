@@ -531,6 +531,44 @@ class ItemImporter extends Importer
     }
 
     /**
+     * Checks the DB to see if a location with the same name exists, otherwise create it
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param $asset_location string
+     *  @param $asset_country string
+     * @return Location|null
+     */
+    public function createLocations($asset_location, $asset_country)
+    {
+        if (empty($asset_location)) {
+            $this->log('No location given, so none created.');
+            return null;
+        }
+        $location = Location::where(['name' => $asset_location])->first();
+
+        if ($location) {
+            $this->log('Location ' . $asset_location . ' already exists');
+            return $location->id;
+        }
+        // No matching locations in the collection, create a new one.
+        $location = new Location();
+        $location->name = $asset_location;
+        $location->address = '';
+        $location->city = '';
+        $location->state = '';
+        $location->country = $asset_country;
+        $location->user_id = $this->user_id;
+
+        if ($location->save()) {
+            $this->log('Location ' . $asset_location . ' was created');
+            return $location->id;
+        }
+        $this->logError($location, 'Location');
+        return null;
+    }
+
+    /**
      * Checks the DB to see if a location with the same name exists and returns it
      *
      * @author Daniel Melzter

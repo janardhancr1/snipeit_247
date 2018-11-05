@@ -18,6 +18,7 @@ class LocationImporter extends ItemImporter
     protected function handle($row)
     {
         $item_location = $this->findCsvMatch($row, "location");
-        $this->createOrFetchLocation($item_location);
+        $item_country = $this->findCsvMatch($row, "country");
+        $this->createLocations($item_location, $item_country);
     }
 }

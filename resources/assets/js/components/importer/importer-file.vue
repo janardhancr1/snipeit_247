@@ -131,6 +131,7 @@ tr {
                         {id: 'email', text: 'Email' },
                         {id: 'item_name', text: 'Item Name' },
                         {id: 'location', text: 'Location' },
+                        {id: 'country', text: 'Country' },
                         {id: 'maintained', text: 'Maintained' },
                         {id: 'manufacturer', text: 'Manufacturer' },
                         {id: 'notes', text: 'Notes' },
