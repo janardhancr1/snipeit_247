@@ -22,4 +22,29 @@ class ImportsController extends Controller
         $path = storage_path('/private_uploads/imports/importerror.csv');
         return response()->download($path);
     }
+
+    public function getlocationfile(){
+        $path = storage_path('/logs/location.csv');
+        return response()->download($path);
+    }
+
+    public function getmanufacturersfile(){
+        $path = storage_path('/logs/manufacturer.csv');
+        return response()->download($path);
+    }
+
+    public function getcategoryfile(){
+        $path = storage_path('/logs/category.csv');
+        return response()->download($path);
+    }
+
+    public function getmodelfile(){
+        $path = storage_path('/logs/assetmodel.csv');
+        return response()->download($path);
+    }
+
+    public function getassetfile(){
+        $path = storage_path('/logs/assetdata.csv');
+        return response()->download($path);
+    }
 }

@@ -51,6 +51,15 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12" style="padding-top:20px">
+                                <span>Download import template for <a href="/import/getlocationfile">Locations</a>,&nbsp;
+                                <a href="/import/getmanufacturersfile">Asset Manufacturers</a>,&nbsp;
+                                <a href="/import/getcategoryfile">Asset Categories</a>,&nbsp;
+                                <a href="/import/getmodelfile">Assets Model</a>,&nbsp;
+                                <a href="/import/getassetfile">Assets</a></span>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12" style="padding-top: 30px;">
                                 <table class="table table-striped" id="upload-table">
                                     <thead>

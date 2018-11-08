@@ -218,13 +218,33 @@ Route::group([ 'prefix' => 'admin','middleware' => ['auth', 'authorize:superuser
 |
 */
 Route::group([ 'prefix' => 'import', 'middleware' => ['auth']], function () {
-        Route::get('/', [
-                'as' => 'imports.index',
-                'uses' => 'ImportsController@index'
-        ]);
-        Route::get('/getfile', [
-            'as' => 'imports.getfile',
-            'uses' => 'ImportsController@getfile'
+    Route::get('/', [
+            'as' => 'imports.index',
+            'uses' => 'ImportsController@index'
+    ]);
+    Route::get('/getfile', [
+        'as' => 'imports.getfile',
+        'uses' => 'ImportsController@getfile'
+    ]);
+    Route::get('/getlocationfile', [
+        'as' => 'imports.getlocationfile',
+        'uses' => 'ImportsController@getlocationfile'
+    ]);
+    Route::get('/getmanufacturersfile', [
+        'as' => 'imports.getmanufacturersfile',
+        'uses' => 'ImportsController@getmanufacturersfile'
+    ]);
+    Route::get('/getcategoryfile', [
+        'as' => 'imports.getcategoryfile',
+        'uses' => 'ImportsController@getcategoryfile'
+    ]);
+    Route::get('/getmodelfile', [
+        'as' => 'imports.getmodelfile',
+        'uses' => 'ImportsController@getmodelfile'
+    ]);
+    Route::get('/getassetfile', [
+        'as' => 'imports.getassetfile',
+        'uses' => 'ImportsController@getassetfile'
     ]);
 });
 

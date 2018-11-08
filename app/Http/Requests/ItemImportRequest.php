@@ -70,7 +70,7 @@ class ItemImportRequest extends FormRequest
         // \Log::useFiles($logFile);
         $importer->import();
         if($class == "Asset" && $this->errors){
-            array_push($this->errors, array("Message" => "There are some import errors. <a href='http://localhost:9090/import/getfile'>Click Here</a> to download the error files."));
+            array_push($this->errors, array("Message" => "There are some import errors. <a href='/import/getfile'>Click Here</a> to download the error files."));
         }
         return $this->errors;
     }
