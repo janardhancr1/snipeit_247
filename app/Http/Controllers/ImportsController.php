@@ -24,27 +24,27 @@ class ImportsController extends Controller
     }
 
     public function getlocationfile(){
-        $path = storage_path('/logs/location.csv');
+        $path = resource_path('/templates/location.csv');
         return response()->download($path);
     }
 
     public function getmanufacturersfile(){
-        $path = storage_path('/logs/manufacturer.csv');
+        $path = resource_path('/templates/manufacturer.csv');
         return response()->download($path);
     }
 
     public function getcategoryfile(){
-        $path = storage_path('/logs/category.csv');
+        $path = resource_path('/templates/category.csv');
         return response()->download($path);
     }
 
     public function getmodelfile(){
-        $path = storage_path('/logs/assetmodel.csv');
+        $path = resource_path('/templates/assetmodel.csv');
         return response()->download($path);
     }
 
     public function getassetfile(){
-        $path = storage_path('/logs/assetdata.csv');
+        $path = resource_path('/templates/assetdata.csv');
         return response()->download($path);
     }
 }
