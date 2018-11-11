@@ -53,7 +53,7 @@ class AssetModelImporter extends ItemImporter
             return;
         } else {
             $asset_model = new AssetModel;
-            $fieldset = CustomFieldset::where(['name' => '247 Fieldset'])->first();
+            $fieldset = CustomFieldset::where(['name' => "'" . $item_category . "'"])->first();
             if($fieldset){
                 $this->item['fieldset_id'] = $fieldset->id;
             }
