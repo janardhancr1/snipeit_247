@@ -232,6 +232,29 @@ class ItemImporter extends Importer
     }
 
     /**
+     * Select the asset model if it exists, otherwise create it.
+     *
+     * @author Daniel Melzter
+     * @since 3.0
+     * @param array
+     * @param $category Category
+     * @param $row Manufacturer
+     * @return int Id of asset model created/found
+     * @internal param $asset_modelno string
+     */
+    public function fetchAssetModel(array $row)
+    {
+
+        $asset_modelNumber = $this->findCsvMatch($row, "model_number");
+        $asset_model = AssetModel::where(['manufacturer_id' => $this->item["manufacturer_id"], 'model_number' => $asset_modelNumber, 'category_id' => $this->item["category_id"]])->first();
+
+        if ($asset_model) {
+            $this->log("A matching model found, returning it.");
+            return $asset_model->id;
+        }
+        return null;
+    }
+    /**
      * Finds a category with the same name and item type in the database, otherwise creates it
      *
      * @author Daniel Melzter
