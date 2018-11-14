@@ -37,7 +37,7 @@ class AssetImporter extends ItemImporter
                     $this->log('Custom Field '. $customField->name .': '.$customFieldValue);
                     if($customField->element == 'listbox'){
                         $values = $customField->formatFieldValuesAsArray();
-                        if(!in_array(strtolower($customFieldValue), array_map('strtolower', $values))) {
+                        if(!in_array(strtolower(trim($customFieldValue)), array_map('strtolower', $values))) {
                             $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
                             $row["Erros"] .= ", " .$customField->name;
                             $createAsset = false;
