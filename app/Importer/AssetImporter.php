@@ -126,7 +126,7 @@ class AssetImporter extends ItemImporter
         } else {
             $asset->fill($item);
         }
-
+        $item_category = $this->findCsvMatch($row, "category");
         $asset->updateMajorCategory($item_category);
 
         // If we're updating, we don't want to overwrite old fields.
