@@ -32,7 +32,7 @@ class AssetImporter extends ItemImporter
         if ($this->customFields) {
             foreach ($this->customFields as $customField) {
                 $customFieldValue = $this->array_smart_custom_field_fetch($row, $customField);
-                if ($customFieldValue) {
+                if (strlen($customFieldValue) > 0) {
                     $this->item['custom_fields'][$customField->db_column_name()] = $customFieldValue;
                     $this->log('Custom Field '. $customField->name .': '.$customFieldValue);
                     if($customField->element == 'listbox'){
