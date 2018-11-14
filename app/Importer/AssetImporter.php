@@ -57,8 +57,8 @@ class AssetImporter extends ItemImporter
             $this->createAssetIfNotExists($row);
         } else {
             $writer->insertOne($row);
-            $asset = new Asset;
-            $this->logError($asset,  'Asset "' . $this->item['name'].'"');
+            //$asset = new Asset;
+            //$this->logError($asset,  'Asset "' . $this->item['name'].'"');
         }
     }
 
