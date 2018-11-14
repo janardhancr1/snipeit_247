@@ -1309,13 +1309,12 @@ class Asset extends Depreciable
      * Update Major category based on category
      *
      * @param  text $category  Category of asset
-     * @param  text $field    Custom Field Name
-     *
+     * 
      */
-    public function updateMajorCategory($category, $field)
+    public function updateMajorCategory($category)
     {
         $techCustomField = CustomField::where(["name" => "Major Category"]);
-        switch($category)
+        switch(strtoupper($category))
         {
             case "LAPTOP":
             case "CPU":
