@@ -1312,8 +1312,8 @@ class Asset extends Depreciable
      * 
      */
     public function updateMajorCategory($category)
-    {
-        $techCustomField = CustomField::where(["name" => "Major Category"])->first();
+    {   
+        $data = "";
         switch(strtoupper($category))
         {
             case "LAPTOP":
@@ -1341,16 +1341,12 @@ class Asset extends Depreciable
             case "TAPE DRIVE":
             case "CONTROLLER":
             case "GOOGLE MINI":
-                if($techCustomField){
-                    $this->custom_fields[$techCustomField->db_column] = "Technology";
-                }
+                $data = "Technology";
                 break;
             default:
-                if($techCustomField){
-                    $this->custom_fields[$techCustomField->db_column] = "Non Technology";
-                }
+                $data  = "Non Technology";
                 break;
         }
-
+        return $data;
     }
 }

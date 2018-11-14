@@ -119,15 +119,16 @@ class AssetImporter extends ItemImporter
             return;
         }
 
-       
-        
+        $item_category = $this->findCsvMatch($row, "category");
+        $techCustomField = CustomField::where(["name" => "Major Category"])->first();
+        $this->item['custom_fields'][$techCustomField->db_column_name()] = $asset->updateMajorCategory($item_category);
+
         if ($editingAsset) {
             $asset->update($item);
         } else {
             $asset->fill($item);
         }
-        $item_category = $this->findCsvMatch($row, "category");
-        $asset->updateMajorCategory($item_category);
+        
 
         // If we're updating, we don't want to overwrite old fields.
         if (array_key_exists('custom_fields', $this->item)) {
