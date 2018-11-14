@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\Statuslabel;
+use App\Models\CustomField;
 use League\Csv\Writer;
 
 class AssetImporter extends ItemImporter
