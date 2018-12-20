@@ -28,7 +28,7 @@ class AssetImporter extends ItemImporter
 
         $filename = config('app.private_uploads') . '/imports/importerror.csv';
         $writer = Writer::createFromPath($filename, 'a');
-        $row["Erros"] = "Invalid data for these master : ";
+        $row["Errors"] = "Invalid data for these master : ";
         if ($this->customFields) {
             foreach ($this->customFields as $customField) {
                 $customFieldValue = $this->array_smart_custom_field_fetch($row, $customField);
@@ -39,7 +39,7 @@ class AssetImporter extends ItemImporter
                         $values = $customField->formatFieldValuesAsArray();
                         if(!in_array(strtolower(trim($customFieldValue)), array_map('strtolower', $values))) {
                             $this->log('Custom Field ' . $customField->name . ' value not found in msater data.');
-                            $row["Erros"] .= ", " .$customField->name;
+                            $row["Errors"] .= $customField->name . ", ";
                             $createAsset = false;
                         }
                     }
@@ -52,7 +52,7 @@ class AssetImporter extends ItemImporter
                 }
             }
         }
-
+        $row["Errors"] = rtrim($row["Errors"], ", ");
         if($createAsset) {
             $this->createAssetIfNotExists($row);
         } else {
